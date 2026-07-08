@@ -1,0 +1,6 @@
+{
+  "name": "Warm Breeze Town",
+  "description": "暖风小镇 - 竖屏真实时间同步生活模拟游戏，融合农场、建造、收集、社交与卡牌RPG",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

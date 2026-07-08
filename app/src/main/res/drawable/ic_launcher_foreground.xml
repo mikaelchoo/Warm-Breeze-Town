@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Cozy leaf representation for Warm Breeze Town (centered in 66dp safe zone) -->
+    <!-- Stem -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M 30,78 C 30,78 38,74 46,66 L 38,58 Z" />
+
+    <!-- Main Leaf Body -->
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M 34,74 C 28,60 40,40 58,34 C 76,28 80,42 74,58 C 68,74 48,80 34,74 Z" />
+
+    <!-- Leaf Highlights (Light Green) -->
+    <path
+        android:fillColor="#A5D6A7"
+        android:pathData="M 52,42 C 60,38 72,40 70,50 C 66,54 58,54 52,42 Z" />
+
+    <!-- Cute little ladybug on the leaf -->
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M 58,52 A 6,6 0,1 1,70 52 A 6,6 0,1 1,58 52" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M 64,46 A 2,2 0,1 1,68 46 A 2,2 0,1 1,64 46" />
+    
+</vector>
