@@ -1,21 +1,81 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 🍃 动森口袋风治愈模拟器 (Cozy Island Simulator)
 
-# Run and deploy your AI Studio app
+这是一个使用 **Kotlin** 和 **Jetpack Compose** 打造的动森风（Animal Crossing-style）单人 2D 治愈系生活模拟手游。游戏融合了经典的收集、建造、社交、换装和自由探索玩法，采用纯 Canvas 自定义绘制技术，呈现出一个精致小巧、充满治愈氛围的口袋海岛。
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/71573281-edf0-4e5a-a77a-93a6289c35a1
+## 🎨 视觉与核心设计概念
 
-## Run Locally
+*   **温润治愈风 (Cozy & Warm)**：依托 Material Design 3 动态色彩与深浅色模式，配合温暖的场景画笔与舒缓色调，营造让人静下心的闲适游戏时光。
+*   **双层世界渲染 (Dual-World Canvas)**：通过 Android Canvas 手绘机制，完美支持**室外庭院**和**温馨室内**的动态自由切换。
+*   **动态昼夜光效 (Day-Night Cycle Window)**：室内窗户会根据真实世界的系统时间（清晨、正午、黄昏、深夜）自动调整透射出的色调与光影，实现沉浸式时间流逝。
 
-**Prerequisites:**  [Android Studio](https://developer.android.com/studio)
+---
 
+## 🚀 核心玩法与系统模块
 
-1. Open Android Studio
-2. Select **Open** and choose the directory containing this project
-3. Allow Android Studio to fix any incompatibilities as it imports the project.
-4. Create a file named `.env` in the project directory and set `GEMINI_API_KEY` in that file to your Gemini API key (see `.env.example` for an example)
-5. Remove this line from the app's `build.gradle.kts` file: `signingConfig = signingConfigs.getByName("debugConfig")`
-6. Run the app on an emulator or physical device
+### 1. 🎣 钓鱼系统 (Fishing System)
+*   可在海边或河畔下竿，支持完整的鱼影追踪、咬钩时机判定与收线反馈。
+*   捕获的鱼类可存入背包或捐赠给博物馆。
+
+### 2. 🦋 捕虫系统 (Bug Catching System)
+*   室外场景中，具有独特运动轨迹的各种昆虫（如蝴蝶、瓢虫等）会在草地上自由飞舞、漫游。
+*   装备捕虫网，通过精确的位置判定，看准时机挥网捕捉！
+
+### 3. 🏡 家具 DIY 与室内装扮 (DIY & Cozy House)
+*   **配方收集与手工制作**：在 DIY 工作台消耗收集到的木材等原材料，制作各种精美的家具（椅子、圆桌、桌子等）。
+*   **自由家居摆放**：可在室内自由拖动、摆放和调整你制作的家具，打造独一无二的温馨小屋。
+
+### 4. 🐱 岛民社交与多样状态 (Villagers & Life States)
+*   多位充满个性的拟人化小动物村民（如小猫妙妙、小狗皮皮、兔子兔美、企鹅胖达等）在岛上惬意生活。
+*   村民具备丰富的行为 AI（行走、钓鱼、在屋里看书、进入梦乡、静静坐着等），你可以随时与他们亲切交谈。
+
+### 5. 🏛 博物馆收集图鉴 (Museum Catalog)
+*   设有一座气派的博物馆。你捕获的所有珍稀鱼类、昆虫等均可向博物馆进行捐赠。
+*   提供完整的图鉴查询卡片，记录你的每一次生态探索成果。
+
+### 6. 👗 换装系统 (Dressing & Wardrobe)
+*   提供衣帽间与多种款式的服装选择，支持角色造型实时改变，让你的角色每天都有不一样的可爱外观。
+
+### 7. 💰 摊位交易经济系统 (Market Stand)
+*   岛上开设有便利的自助小摊。
+*   支持随时将收集到的资源、鱼类、昆虫变卖给商店，换取 **铃钱 (Bells)**，用于未来的建设与消费。
+
+---
+
+## 🛠️ 技术架构与代码实现
+
+游戏基于经典的 **MVVM (Model-View-ViewModel)** 架构进行清晰的层次划分：
+
+```
+com.example.game/
+├── data/
+│   └── PlayerData.kt        # 本地玩家核心数据模型（家具、村民、花卉、图鉴等）
+├── models/
+│   └── GameModels.kt        # 游戏实体定义（昆虫规格、鱼类、商品、配方等）
+├── engine/
+│   └── GameViewModel.kt     # 核心游戏引擎与逻辑层（定时刷新、虫子AI、数据持久化）
+└── ui/
+    ├── GameUI.kt            # Compose 搭建的 Material 3 现代化 UI 与游戏交互控制面板
+    └── Renderers.kt         # 高性能双缓冲 Canvas 渲染引擎（绘制室外、室内、角色及全套动画）
+```
+
+*   **数据层 (`PlayerData` / `GameModels`)**：管理并持久化玩家数据、背包、钱币、解锁配方、已放置家具及村民的位置和 AI 状态。
+*   **控制层 (`GameViewModel`)**：利用 Kotlin 协程与 Flow，维持每秒 60 帧的高频逻辑刷新（更新昆虫坐标、村民行为状态、捕捞概率等）。
+*   **表现层 (`GameUI` / `Renderers`)**：
+    *   `GameUI.kt` 采用声明式 UI 控制菜单与各种气泡弹窗（如博物馆、DIY、摊位等）。
+    *   `Renderers.kt` 使用 Canvas 的底层绘制 API（Path、Matrix、Paint 滤镜等）进行全自定义游戏画面渲染，有效规避传统 UI 的重组性能瓶颈。
+
+---
+
+## 📦 构建与安装说明
+
+### 环境要求
+*   **Android Studio** Koala / Ladybug 或更高版本
+*   **Kotlin** 1.9+
+*   **Gradle 8.0+** (使用 Kotlin DSL - `.gradle.kts`)
+
+### 本地编译
+1.  克隆或导入本项目的 `applet` 源码。
+2.  通过 IDE 或者控制台运行 `./gradlew assembleDebug`。
+3.  安装生成的 APK 至你的手机或者模拟器中即可开启治愈之旅！
